@@ -18,7 +18,7 @@ export const ParticleSystem: React.FC<ParticleSystemProps> = ({
 
   // Generate glowing mountain fireflies (جگنو) on mount
   useEffect(() => {
-    const ambient = Array.from({ length: 22 }).map((_, i) => ({
+    const ambient = Array.from({ length: 24 }).map((_, i) => ({
       id: i,
       x: Math.random() * 85 + 10,
       y: Math.random() * 75 + 15,
@@ -58,31 +58,91 @@ export const ParticleSystem: React.FC<ParticleSystemProps> = ({
         className="absolute top-1/2 left-[-10%] w-[130%] h-56 sm:h-72 bg-gradient-to-r from-transparent via-[#B98558]/10 to-transparent blur-3xl pointer-events-none opacity-30"
       />
 
-      {/* 3. FLYING SUNSET BIRDS SILHOUETTES */}
+      {/* 3. MULTIPLE FLYING SUNSET BIRD FLOCKS */}
+
+      {/* FLOCK A: MAIN SUNSET FLOCK (V-Formation, High Sky) */}
       <motion.div
-        initial={{ x: "110vw", y: "15vh" }}
+        initial={{ x: "115vw", y: "12vh" }}
         animate={{
-          x: ["110vw", "-20vw"],
-          y: ["15vh", "22vh", "18vh", "25vh"],
+          x: ["115vw", "-25vw"],
+          y: ["12vh", "18vh", "14vh", "22vh"],
         }}
         transition={{
-          duration: 38,
+          duration: 32,
           repeat: Infinity,
           ease: "linear",
-          delay: 2,
+          delay: 1,
         }}
-        className="absolute flex items-center gap-3 opacity-60 pointer-events-none"
+        className="absolute flex items-center gap-2 opacity-75 pointer-events-none"
       >
-        {/* Bird 1 */}
-        <svg className="w-5 h-5 text-[#3B2418] fill-current animate-pulse" viewBox="0 0 24 24">
+        <svg className="w-5 h-5 text-[#21130D] fill-current animate-pulse" viewBox="0 0 24 24">
           <path d="M2 12c4-2 7-1 10 3 3-4 6-5 10-3-4 5-7 5-10 1-3 4-6 4-10-1z" />
         </svg>
-        {/* Bird 2 */}
-        <svg className="w-4 h-4 text-[#21130D] fill-current -mt-2" viewBox="0 0 24 24">
+        <svg className="w-4 h-4 text-[#3B2418] fill-current -mt-3" viewBox="0 0 24 24">
           <path d="M2 12c4-2 7-1 10 3 3-4 6-5 10-3-4 5-7 5-10 1-3 4-6 4-10-1z" />
         </svg>
-        {/* Bird 3 */}
-        <svg className="w-3 h-3 text-[#3B2418] fill-current mt-2" viewBox="0 0 24 24">
+        <svg className="w-3.5 h-3.5 text-[#21130D] fill-current mt-2" viewBox="0 0 24 24">
+          <path d="M2 12c4-2 7-1 10 3 3-4 6-5 10-3-4 5-7 5-10 1-3 4-6 4-10-1z" />
+        </svg>
+        <svg className="w-4 h-4 text-[#3B2418] fill-current -mt-1" viewBox="0 0 24 24">
+          <path d="M2 12c4-2 7-1 10 3 3-4 6-5 10-3-4 5-7 5-10 1-3 4-6 4-10-1z" />
+        </svg>
+        <svg className="w-3 h-3 text-[#21130D] fill-current mt-3" viewBox="0 0 24 24">
+          <path d="M2 12c4-2 7-1 10 3 3-4 6-5 10-3-4 5-7 5-10 1-3 4-6 4-10-1z" />
+        </svg>
+      </motion.div>
+
+      {/* FLOCK B: MID-ALTITUDE FAST BIRDS */}
+      <motion.div
+        initial={{ x: "120vw", y: "24vh" }}
+        animate={{
+          x: ["120vw", "-20vw"],
+          y: ["24vh", "29vh", "22vh", "30vh"],
+        }}
+        transition={{
+          duration: 24,
+          repeat: Infinity,
+          ease: "linear",
+          delay: 12,
+        }}
+        className="absolute flex items-center gap-3 opacity-65 pointer-events-none"
+      >
+        <svg className="w-6 h-6 text-[#1A0E08] fill-current" viewBox="0 0 24 24">
+          <path d="M2 12c4-2 7-1 10 3 3-4 6-5 10-3-4 5-7 5-10 1-3 4-6 4-10-1z" />
+        </svg>
+        <svg className="w-4.5 h-4.5 text-[#3B2418] fill-current -mt-2" viewBox="0 0 24 24">
+          <path d="M2 12c4-2 7-1 10 3 3-4 6-5 10-3-4 5-7 5-10 1-3 4-6 4-10-1z" />
+        </svg>
+        <svg className="w-4 h-4 text-[#21130D] fill-current mt-2" viewBox="0 0 24 24">
+          <path d="M2 12c4-2 7-1 10 3 3-4 6-5 10-3-4 5-7 5-10 1-3 4-6 4-10-1z" />
+        </svg>
+        <svg className="w-3.5 h-3.5 text-[#3B2418] fill-current -mt-3" viewBox="0 0 24 24">
+          <path d="M2 12c4-2 7-1 10 3 3-4 6-5 10-3-4 5-7 5-10 1-3 4-6 4-10-1z" />
+        </svg>
+      </motion.div>
+
+      {/* FLOCK C: DISTANT HORIZON BIRDS (GLIDING NEAR SUN) */}
+      <motion.div
+        initial={{ x: "-20vw", y: "8vh" }}
+        animate={{
+          x: ["-20vw", "115vw"],
+          y: ["8vh", "14vh", "10vh", "16vh"],
+        }}
+        transition={{
+          duration: 45,
+          repeat: Infinity,
+          ease: "linear",
+          delay: 6,
+        }}
+        className="absolute flex items-center gap-2.5 opacity-50 pointer-events-none"
+      >
+        <svg className="w-3.5 h-3.5 text-[#21130D] fill-current" viewBox="0 0 24 24">
+          <path d="M2 12c4-2 7-1 10 3 3-4 6-5 10-3-4 5-7 5-10 1-3 4-6 4-10-1z" />
+        </svg>
+        <svg className="w-3 h-3 text-[#3B2418] fill-current -mt-1" viewBox="0 0 24 24">
+          <path d="M2 12c4-2 7-1 10 3 3-4 6-5 10-3-4 5-7 5-10 1-3 4-6 4-10-1z" />
+        </svg>
+        <svg className="w-2.5 h-2.5 text-[#21130D] fill-current mt-1" viewBox="0 0 24 24">
           <path d="M2 12c4-2 7-1 10 3 3-4 6-5 10-3-4 5-7 5-10 1-3 4-6 4-10-1z" />
         </svg>
       </motion.div>
