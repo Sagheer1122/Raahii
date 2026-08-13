@@ -77,17 +77,6 @@ npm run start
 
 ---
 
-## 🌐 Deploying to Vercel
-
-The application is pre-configured for instant zero-config deployment on [Vercel](https://vercel.com/):
-
-```bash
-npx vercel
-```
-
-Alternatively, push your code to GitHub and connect your repository on the Vercel dashboard.
-
----
 
 ## 📄 License
 

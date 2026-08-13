@@ -86,7 +86,7 @@ export const Hero: React.FC = () => {
         </motion.div>
       </header>
 
-      {/* 4. MAIN CONTENT WITH COMPACT RESPONSIVE URDU CARDS ON LEFT */}
+      {/* 4. MAIN CONTENT WITH COMPACT RESPONSIVE LIFE QUOTE CARDS ON LEFT */}
       <main className="relative z-20 w-full max-w-7xl mx-auto px-4 sm:px-8 flex-1 flex items-center justify-start overflow-hidden py-2">
         <DualQuoteCards />
       </main>
