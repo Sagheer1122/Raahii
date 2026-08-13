@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#3B2418" />
+      <stop offset="100%" stop-color="#150B07" />
+    </linearGradient>
+    <linearGradient id="sunGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#F5EBDD" />
+      <stop offset="100%" stop-color="#B98558" />
+    </linearGradient>
+    <linearGradient id="mountainGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#B98558" />
+      <stop offset="100%" stop-color="#21130D" />
+    </linearGradient>
+  </defs>
+
+  <!-- Background Circle -->
+  <rect width="64" height="64" rx="16" fill="url(#bgGrad)" />
+  <rect width="62" height="62" x="1" y="1" rx="15" fill="none" stroke="#B98558" stroke-opacity="0.4" stroke-width="1.5" />
+
+  <!-- Sunset Sun -->
+  <circle cx="32" cy="24" r="12" fill="url(#sunGrad)" />
+
+  <!-- Back Mountain -->
+  <polygon points="12,52 30,28 48,52" fill="#543625" />
+
+  <!-- Front Main Mountain -->
+  <polygon points="20,52 38,20 56,52" fill="url(#mountainGrad)" />
+  <polygon points="38,20 44,30 38,34 32,28" fill="#F5EBDD" opacity="0.8" />
+
+  <!-- Ambient Glow Dot -->
+  <circle cx="38" cy="20" r="2" fill="#FFF7EC" />
+</svg>
