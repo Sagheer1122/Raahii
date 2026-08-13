@@ -2,6 +2,11 @@
 
 > *"Listen to the quiet soul of the mountains. Chill ambient radio and peaceful thoughts at golden sunset."*
 
+<p align="center">
+  <img src="./public/icon.svg" width="96" height="96" alt="RAAHI Mountain Logo" />
+</p>
+
+---
 
 ## ✨ Overview
 
@@ -43,8 +48,8 @@ Make sure you have [Node.js](https://nodejs.org/) (v18 or higher) installed.
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/Sagheer1122884/campus-connect-hub.git
-   cd "New folder (2)"
+   git clone https://github.com/Sagheer1122/Raahii.git
+   cd Raahii
    ```
 
 2. Install dependencies:
