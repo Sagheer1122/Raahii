@@ -8,15 +8,34 @@ import { MusicPlayer } from "./MusicPlayer";
 import { DualQuoteCards } from "./DualQuoteCards";
 
 export const Hero: React.FC = () => {
-  const [showGlow, setShowGlow] = useState<boolean>(false);
+  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (typeof window === "undefined") return;
+    const { innerWidth, innerHeight } = window;
+    const x = (e.clientX / innerWidth - 0.5) * 2; // Range -1 to 1
+    const y = (e.clientY / innerHeight - 0.5) * 2; // Range -1 to 1
+    setMousePos({ x, y });
+  };
 
   return (
-    <div className="relative h-screen w-full bg-[#21130D] text-[#F5EBDD] overflow-hidden flex flex-col justify-between select-none">
-      {/* 1. FULLSCREEN OIL PAINTING BACKGROUND IMAGE */}
+    <div
+      onMouseMove={handleMouseMove}
+      className="relative h-screen w-full bg-[#21130D] text-[#F5EBDD] overflow-hidden flex flex-col justify-between select-none"
+    >
+      {/* 1. FULLSCREEN OIL PAINTING BACKGROUND IMAGE WITH 3D PARALLAX */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
         <motion.div
-          animate={{ scale: [1, 1.025, 1] }}
-          transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }}
+          animate={{
+            scale: [1.03, 1.05, 1.03],
+            x: mousePos.x * -14,
+            y: mousePos.y * -14,
+          }}
+          transition={{
+            scale: { duration: 20, repeat: Infinity, ease: "easeInOut" },
+            x: { duration: 0.4, ease: "easeOut" },
+            y: { duration: 0.4, ease: "easeOut" },
+          }}
           className="relative w-full h-full"
         >
           <Image
@@ -35,12 +54,8 @@ export const Hero: React.FC = () => {
         <div className="absolute inset-0 bg-gradient-to-b from-[#21130D]/40 via-transparent to-[#0F0805]/90 pointer-events-none" />
       </div>
 
-      {/* 2. AMBIENT MOUNTAIN PARTICLES */}
-      <ParticleSystem
-        tensionTriggers={0}
-        showGlow={showGlow}
-        onGlowComplete={() => setShowGlow(false)}
-      />
+      {/* 2. DELUXE ANIMATIONS (SUN RAYS, MIST, BIRDS, FIREFLIES) */}
+      <ParticleSystem mouseX={mousePos.x} mouseY={mousePos.y} />
 
       {/* 3. TOP NAVIGATION BADGE */}
       <header className="relative z-50 w-full max-w-7xl mx-auto px-4 sm:px-8 pt-3.5 sm:pt-5 flex items-center justify-between pointer-events-none">

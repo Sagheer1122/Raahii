@@ -1,161 +1,119 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-
-interface Particle {
-  id: number;
-  startX: number;
-  startY: number;
-  targetX: number;
-  targetY: number;
-  size: number;
-  duration: number;
-  color: string;
-}
+import { motion } from "framer-motion";
 
 interface ParticleSystemProps {
-  tensionTriggers: number;
-  showGlow: boolean;
-  onGlowComplete: () => void;
+  mouseX?: number;
+  mouseY?: number;
 }
 
 export const ParticleSystem: React.FC<ParticleSystemProps> = ({
-  tensionTriggers,
-  showGlow,
-  onGlowComplete,
+  mouseX = 0,
+  mouseY = 0,
 }) => {
-  const [particles, setParticles] = useState<Particle[]>([]);
-  const [ambientParticles, setAmbientParticles] = useState<
+  const [fireflies, setFireflies] = useState<
     { id: number; x: number; y: number; size: number; duration: number; delay: number }[]
   >([]);
 
-  // Generate ambient floating particles on mount
+  // Generate glowing mountain fireflies (جگنو) on mount
   useEffect(() => {
-    const ambient = Array.from({ length: 16 }).map((_, i) => ({
+    const ambient = Array.from({ length: 22 }).map((_, i) => ({
       id: i,
-      x: Math.random() * 90 + 5,
-      y: Math.random() * 80 + 10,
-      size: Math.random() * 3 + 2,
-      duration: Math.random() * 8 + 6,
-      delay: Math.random() * 4,
+      x: Math.random() * 85 + 10,
+      y: Math.random() * 75 + 15,
+      size: Math.random() * 3.5 + 2,
+      duration: Math.random() * 7 + 5,
+      delay: Math.random() * 5,
     }));
-    setAmbientParticles(ambient);
+    setFireflies(ambient);
   }, []);
 
-  // Whenever user clicks tension button, create new flying particles
-  useEffect(() => {
-    if (tensionTriggers === 0) return;
-
-    const colors = ["#F5EBDD", "#D6BFA5", "#B98558"];
-    const count = Math.floor(Math.random() * 3) + 3; // 3 to 5 particles per click
-
-    const newParticles: Particle[] = Array.from({ length: count }).map((_, i) => {
-      return {
-        id: Date.now() + i + Math.random(),
-        startX: Math.random() * 25 + 15, // left content area ~15-40%
-        startY: Math.random() * 30 + 40, // ~40-70% height
-        targetX: Math.random() * 10 + 72, // Baba position ~72-82%
-        targetY: Math.random() * 15 + 55, // Baba position ~55-70%
-        size: Math.random() * 4 + 3, // 3-7px
-        duration: Math.random() * 0.8 + 0.8, // 0.8s - 1.6s
-        color: colors[Math.floor(Math.random() * colors.length)],
-      };
-    });
-
-    setParticles((prev) => [...prev, ...newParticles]);
-
-    // Clean up particles after animation completes
-    const timer = setTimeout(() => {
-      setParticles((prev) => prev.filter((p) => !newParticles.some((np) => np.id === p.id)));
-    }, 2000);
-
-    return () => clearTimeout(timer);
-  }, [tensionTriggers]);
-
   return (
-    <div className="pointer-events-none absolute inset-0 overflow-hidden z-20">
-      {/* Ambient background particles */}
-      {ambientParticles.map((p) => (
+    <div className="pointer-events-none absolute inset-0 overflow-hidden z-10 select-none">
+      {/* 1. SUNSET GOLDEN SUN RAYS & HORIZON LENS FLARE */}
+      <motion.div
+        animate={{
+          opacity: [0.45, 0.75, 0.45],
+          scale: [1, 1.08, 1],
+        }}
+        transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+        className="absolute top-4 sm:top-10 right-8 sm:right-32 w-72 h-72 sm:w-96 sm:h-96 rounded-full bg-gradient-to-br from-[#FFF5DC]/35 via-[#B98558]/20 to-transparent blur-3xl pointer-events-none"
+        style={{
+          transform: `translate(${mouseX * -15}px, ${mouseY * -15}px)`,
+        }}
+      />
+
+      {/* 2. FLOATING MOUNTAIN MIST / FOG LAYER 1 */}
+      <motion.div
+        animate={{ x: ["-10%", "10%", "-10%"] }}
+        transition={{ duration: 35, repeat: Infinity, ease: "easeInOut" }}
+        className="absolute top-1/3 left-[-20%] w-[140%] h-48 sm:h-64 bg-gradient-to-r from-transparent via-[#F5EBDD]/8 to-transparent blur-2xl pointer-events-none opacity-40"
+      />
+
+      {/* FLOATING MOUNTAIN MIST / FOG LAYER 2 */}
+      <motion.div
+        animate={{ x: ["10%", "-10%", "10%"] }}
+        transition={{ duration: 45, repeat: Infinity, ease: "easeInOut" }}
+        className="absolute top-1/2 left-[-10%] w-[130%] h-56 sm:h-72 bg-gradient-to-r from-transparent via-[#B98558]/10 to-transparent blur-3xl pointer-events-none opacity-30"
+      />
+
+      {/* 3. FLYING SUNSET BIRDS SILHOUETTES */}
+      <motion.div
+        initial={{ x: "110vw", y: "15vh" }}
+        animate={{
+          x: ["110vw", "-20vw"],
+          y: ["15vh", "22vh", "18vh", "25vh"],
+        }}
+        transition={{
+          duration: 38,
+          repeat: Infinity,
+          ease: "linear",
+          delay: 2,
+        }}
+        className="absolute flex items-center gap-3 opacity-60 pointer-events-none"
+      >
+        {/* Bird 1 */}
+        <svg className="w-5 h-5 text-[#3B2418] fill-current animate-pulse" viewBox="0 0 24 24">
+          <path d="M2 12c4-2 7-1 10 3 3-4 6-5 10-3-4 5-7 5-10 1-3 4-6 4-10-1z" />
+        </svg>
+        {/* Bird 2 */}
+        <svg className="w-4 h-4 text-[#21130D] fill-current -mt-2" viewBox="0 0 24 24">
+          <path d="M2 12c4-2 7-1 10 3 3-4 6-5 10-3-4 5-7 5-10 1-3 4-6 4-10-1z" />
+        </svg>
+        {/* Bird 3 */}
+        <svg className="w-3 h-3 text-[#3B2418] fill-current mt-2" viewBox="0 0 24 24">
+          <path d="M2 12c4-2 7-1 10 3 3-4 6-5 10-3-4 5-7 5-10 1-3 4-6 4-10-1z" />
+        </svg>
+      </motion.div>
+
+      {/* 4. GLOWING GOLDEN FIREFLIES (جگنو) */}
+      {fireflies.map((f) => (
         <motion.div
-          key={`ambient-${p.id}`}
-          className="absolute rounded-full bg-[#B98558]/30 blur-[0.5px]"
+          key={`firefly-${f.id}`}
+          className="absolute rounded-full bg-gradient-to-r from-[#FFF7EC] to-[#B98558]"
           style={{
-            left: `${p.x}%`,
-            top: `${p.y}%`,
-            width: `${p.size}px`,
-            height: `${p.size}px`,
-            boxShadow: "0 0 8px rgba(185, 133, 88, 0.4)",
+            left: `${f.x}%`,
+            top: `${f.y}%`,
+            width: `${f.size}px`,
+            height: `${f.size}px`,
+            boxShadow: "0 0 10px rgba(245, 235, 221, 0.9), 0 0 20px rgba(185, 133, 88, 0.6)",
+            transform: `translate(${mouseX * (f.id % 2 === 0 ? 12 : -12)}px, ${mouseY * 12}px)`,
           }}
           animate={{
-            y: [0, -25, 0],
-            x: [0, 10, -10, 0],
-            opacity: [0.15, 0.4, 0.15],
+            y: [0, -30, 0],
+            x: [0, 15, -15, 0],
+            opacity: [0.1, 0.85, 0.2],
+            scale: [0.8, 1.4, 0.8],
           }}
           transition={{
-            duration: p.duration,
+            duration: f.duration,
             repeat: Infinity,
-            delay: p.delay,
+            delay: f.delay,
             ease: "easeInOut",
           }}
         />
       ))}
-
-      {/* Tension release flying particles */}
-      <AnimatePresence>
-        {particles.map((p) => (
-          <motion.div
-            key={p.id}
-            className="absolute rounded-full shadow-[0_0_12px_rgba(245,235,221,0.8)]"
-            style={{
-              width: `${p.size}px`,
-              height: `${p.size}px`,
-              backgroundColor: p.color,
-            }}
-            initial={{
-              left: `${p.startX}%`,
-              top: `${p.startY}%`,
-              opacity: 0,
-              scale: 0.5,
-            }}
-            animate={{
-              left: [`${p.startX}%`, `${(p.startX + p.targetX) / 2 - 5}%`, `${p.targetX}%`],
-              top: [`${p.startY}%`, `${Math.min(p.startY, p.targetY) - 10}%`, `${p.targetY}%`],
-              opacity: [0, 1, 0.9, 0],
-              scale: [0.5, 1.4, 1, 0.2],
-            }}
-            exit={{ opacity: 0 }}
-            transition={{
-              duration: p.duration,
-              ease: [0.25, 0.1, 0.25, 1],
-            }}
-          />
-        ))}
-      </AnimatePresence>
-
-      {/* Baba Radial Glow on Particle Arrival */}
-      <AnimatePresence>
-        {showGlow && (
-          <motion.div
-            key="baba-glow"
-            className="absolute rounded-full pointer-events-none"
-            style={{
-              left: "76%",
-              top: "62%",
-              transform: "translate(-50%, -50%)",
-              width: "280px",
-              height: "280px",
-              background: "radial-gradient(circle, rgba(245,235,221,0.28) 0%, rgba(185,133,88,0.12) 45%, transparent 70%)",
-              boxShadow: "0 0 60px rgba(245,235,221,0.2)",
-            }}
-            initial={{ scale: 0.7, opacity: 0.4 }}
-            animate={{ scale: 1.5, opacity: 0 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.9, ease: "easeOut" }}
-            onAnimationComplete={onGlowComplete}
-          />
-        )}
-      </AnimatePresence>
     </div>
   );
 };
