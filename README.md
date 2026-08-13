@@ -2,9 +2,6 @@
 
 > *"Listen to the quiet soul of the mountains. Chill ambient radio and peaceful thoughts at golden sunset."*
 
-![RAAHI Preview](/icon.svg)
-
----
 
 ## ✨ Overview
 
